@@ -15,6 +15,7 @@ body {
 nav {
     display: flex;
     height: 10vh;
+    border-bottom: 1px solid #1e2435;
 }
 
 .logo , .features {
@@ -27,7 +28,7 @@ nav {
 
 a {
     text-decoration: none;
-    color: white;
+    color: rgba(116,112,131);
 }
 
 .logo-name {
@@ -38,14 +39,14 @@ a {
 .logo {
     display: flex;
     align-items: center;
-    border: 1px solid #ccc;
+    border-right: 1px solid #1e2345;
 }
 
 .features {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    border: 1px solid #ccc;
+    border-right: 1px solid #1e2345;
 }
 
 .features > div > a {
@@ -56,11 +57,11 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    border: 1px solid #ccc;
+    border-right: 1px solid #1e2345;
 }
 
 .about > div > i {
-    color: white;
+    color: rgba(116,112,131);
     font-size: 1rem;
 }
 
@@ -68,12 +69,12 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #ccc;
+    /* border-right: 1px solid #1e2345; */
 }
 
 .profile > div {
     font-size: 1rem;
-    color: white;
+    color: rgba(116,112,131);
 }
 
 main {
@@ -81,24 +82,26 @@ main {
 }
 
 main > article {
-    display: grid;
     height: 100%;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 2fr 1fr;
 }
 
-main > article > div {
+/* main > article > div {
     height: 100%;
-    border: 1px solid #ccc;
-}
+} */
 
 .move-btns {
     display: flex;
+    border: 1px solid #1e2345;
 }
 
 .move-btns > div {
     width: 50%;
-    border: 1px solid #ccc;
 }
 
 .next-btn, .prev-btn {
@@ -108,4 +111,87 @@ main > article > div {
     font-size: 3rem;
     color: white;
     font-weight: 200;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 4rem;
+    transition: all 300ms ease;
 }
+
+.prev-btn:hover, .next-btn:hover {
+ background-color: rgba(30, 36, 53, 0.16);   
+ cursor: pointer;
+}
+
+.prev-btn:hover {
+    background-position: 60% 50%;
+}
+
+.next-btn:hover {
+    background-position: 40% 50%;
+}
+
+.prev-btn {
+    background-image: url(https://uploads-ssl.webflow.com/60c0a5bb9df18e0c7bea5c2c/60c4ad092d9aaf42d2eeafcd_arrow.svg);
+}
+
+.next-btn {
+    background-image: url(https://uploads-ssl.webflow.com/60c0a5bb9df18e0c7bea5c2c/621805871b2d3542bd12adff_arrow-back.svg);
+    border-right: 1px solid #1e2435;
+}
+
+.description {
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+    border-left: 1px solid #1e2345;
+    border-right: 1px solid #1e2345;
+}
+
+.description > div > p {
+    color: rgba(116,112,131);
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.heading {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    height: 30vh;
+    border-top: 1px solid #1e2345;
+    padding-left: 2rem;
+}
+
+.rotating-icon {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   color: rgba(116,112,131);
+   font-size: 8rem;
+   transition: all 2s ease;
+}
+
+.heading-text {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    padding: 1rem 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 30vh;
+    gap: 1rem;
+}
+
+.heading-front-text, .heading-secondary-text {
+    height: 100%;
+    width: 80%;
+    font-size: 3rem;
+    transition: all 0.3s ease;
+}
+
+.image {
+    background-image: url(/images/typewriter1.jpg);
+    background-position: center;
+    background-size: cover;
+    filter: grayscale(30%);
+}
+
