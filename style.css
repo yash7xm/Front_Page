@@ -79,6 +79,8 @@ a {
 
 main {
     flex-grow: 1;
+    position: relative;
+    overflow: hidden;
 }
 
 main > article {
@@ -86,30 +88,55 @@ main > article {
     width: 100%;
     top: 0px;
     left: 0px;
+    /* flex: 1 0 100%; */
+    position: absolute;
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 2fr 1fr;
+    transition: transform 400ms ease;
 }
 
-/* main > article > div {
-    height: 100%;
-} */
+main > article[data-status="inactive"] {
+    transform: translateX(-100%);
+    transition: none;
+  }
+  
+  main > article[data-status="active"] {
+    transform: translateX(0%);
+  }
+  
+  main > article[data-status="before"] {
+    transform: translateX(-100%);
+  }
+  
+  main > article[data-status="after"] {
+    transform: translateX(100%);
+  }
+  
+  main > article[data-status="becoming-active-from-before"] {
+    transform: translateX(-100%);
+    transition: none;
+  }
+  
+  main > article[data-status="becoming-active-from-after"] {
+    transform: translateX(100%);
+    transition: none;
+  }
+
 
 .move-btns {
     display: flex;
     border: 1px solid #1e2345;
+    pointer-events: all;
 }
 
-.move-btns > div {
-    width: 50%;
-}
 
-.next-btn, .prev-btn {
+.left-btn, .right-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 3rem;
-    color: white;
+    /* color: white; */
     font-weight: 200;
     background-position: 50% 50%;
     background-repeat: no-repeat;
@@ -117,24 +144,28 @@ main > article {
     transition: all 300ms ease;
 }
 
-.prev-btn:hover, .next-btn:hover {
+.right-btn:hover, .left-btn:hover {
  background-color: rgba(30, 36, 53, 0.16);   
  cursor: pointer;
 }
 
-.prev-btn:hover {
+.move-btns > div{
+    width: 50%;
+}
+
+.right-btn:hover {
     background-position: 60% 50%;
 }
 
-.next-btn:hover {
+.left-btn:hover {
     background-position: 40% 50%;
 }
 
-.prev-btn {
+.right-btn {
     background-image: url(https://uploads-ssl.webflow.com/60c0a5bb9df18e0c7bea5c2c/60c4ad092d9aaf42d2eeafcd_arrow.svg);
 }
 
-.next-btn {
+.left-btn {
     background-image: url(https://uploads-ssl.webflow.com/60c0a5bb9df18e0c7bea5c2c/621805871b2d3542bd12adff_arrow-back.svg);
     border-right: 1px solid #1e2435;
 }
@@ -142,7 +173,7 @@ main > article {
 .description {
     display: flex;
     align-items: flex-end;
-    padding: 2rem;
+    padding: 4rem;
     border-left: 1px solid #1e2345;
     border-right: 1px solid #1e2345;
 }
@@ -194,4 +225,3 @@ main > article {
     background-size: cover;
     filter: grayscale(30%);
 }
-
