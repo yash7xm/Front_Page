@@ -1,29 +1,33 @@
-const headingText = document.querySelector('.heading-text');
-const heading = document.querySelector('.heading');
-const rotatingIcon = document.querySelector('.plus-icon');
-const headingFrontText = document.querySelector('.heading-front-text');
-const headingSecondaryText = document.querySelector('.heading-secondary-text');
-
 let scrollDownStop = false;
 let scrollTopStop = false;
+let activeIndex = 0;
+const slides = document.getElementsByTagName("article");
 
-heading.addEventListener('mouseenter', () => {
+function handleMouseEnter() {
+    console.log("Mouse entered!");
+    console.log(activeIndex);
+    const heading = document.querySelector(`[data-index="${activeIndex}"] .heading`);
+    const headingText = document.querySelector(`[data-index="${activeIndex}"] .heading .heading-text`);
+    const rotatingIcon = document.querySelector(`[data-index="${activeIndex}"] .heading .rotating-icon img`);
     scrollTopStop = true;
-    scrollToBottom(headingText.scrollTop, headingText.scrollHeight);
+    scrollToBottom(headingText.scrollTop, headingText.scrollHeight, headingText);
     rotatingIcon.style.transform = "rotate(90deg)";
     rotatingIcon.style.transition = "transform 0.3s ease-out";
-    console.log('hello');
-})
-
-heading.addEventListener('mouseleave', () => {
+  }
+  
+  function handleMouseExit() {
+    console.log("Mouse left!");
+    const heading = document.querySelector(`[data-index="${activeIndex}"] .heading`);
+    const headingText = document.querySelector(`[data-index="${activeIndex}"] .heading .heading-text`);
+    const rotatingIcon = document.querySelector(`[data-index="${activeIndex}"] .heading .rotating-icon img`);
     scrollDownStop = true;
-    scrollToTop(headingText.scrollTop, 0);
+    scrollToTop(headingText.scrollTop, 0, headingText);
     rotatingIcon.style.transform = "rotate(0deg)";
     rotatingIcon.style.transition = "transform 0.3s ease-out";
-    console.log('leaving'); 
-})
+  }
+  
 
-function scrollToBottom(start, end){
+function scrollToBottom(start, end, headingText){
     let scrolled = start;
     let scrollEnd = end; 
     const scrollInterval = setInterval(() => {
@@ -37,7 +41,7 @@ function scrollToBottom(start, end){
     }, 1);
 }
 
-function scrollToTop(start, end){
+function scrollToTop(start, end, headingText){
     let scrolled = start;
     let scrollEnd = end; 
     const scrollInterval = setInterval(() => {
@@ -48,4 +52,36 @@ function scrollToTop(start, end){
             clearInterval(scrollInterval);
         }
     }, 1);
+}
+
+function handleRightBtn(){
+    const nextIndex = activeIndex + 1 <= slides.length - 1 ? activeIndex + 1 : 0;
+  
+    const currentSlide = document.querySelector(`[data-index="${activeIndex}"]`),
+          nextSlide = document.querySelector(`[data-index="${nextIndex}"]`);
+    
+    currentSlide.dataset.status = "before";
+    
+    nextSlide.dataset.status = "becoming-active-from-after";
+    
+    setTimeout(() => {
+      nextSlide.dataset.status = "active";
+      activeIndex = nextIndex;
+    });
+}
+
+function handleLeftBtn(){
+    const nextIndex = activeIndex - 1 >= 0 ? activeIndex - 1 : slides.length - 1;
+  
+    const currentSlide = document.querySelector(`[data-index="${activeIndex}"]`),
+          nextSlide = document.querySelector(`[data-index="${nextIndex}"]`);
+          
+    currentSlide.dataset.status = "after";
+    
+    nextSlide.dataset.status = "becoming-active-from-before";
+    
+    setTimeout(() => {
+      nextSlide.dataset.status = "active";
+      activeIndex = nextIndex;
+    });
 }
