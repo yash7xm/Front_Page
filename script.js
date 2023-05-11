@@ -1,16 +1,30 @@
+const slides = document.getElementsByTagName("article");
+const mouseCaret = document.querySelector('.mouseCaret');
+const navLinks = document.querySelectorAll('nav .grow-link');
+const rightBtn = document.querySelectorAll('.move-btns .right-btn');
+const leftBtn = document.querySelectorAll('.move-btns .left-btn');
+const borderLinks = document.querySelectorAll('.border-link');
+const nav = document.querySelector('nav');
+
 let scrollDownStop = false;
 let scrollTopStop = false;
 let activeIndex = 0;
-const slides = document.getElementsByTagName("article");
-const mouseCaret = document.querySelector('.mouseCaret');
-const navLinks = document.querySelectorAll('nav a');
-let rightBtn = document.querySelectorAll('.move-btns .right-btn');
-let leftBtn = document.querySelectorAll('.move-btns .left-btn');
 
 
 window.addEventListener('mousemove', (e) => {
     mouseCaret.style.top = e.pageY + 'px';
     mouseCaret.style.left = e.pageX + 'px';
+})
+
+borderLinks.forEach(link => {
+    link.addEventListener('mouseover', () => {
+        link.style.color = 'white';
+        mouseCaret.classList.remove('mouseCaret');
+    })
+    link.addEventListener('mouseleave', () => {
+        link.style.color = 'rgba(116,112,131)';
+        mouseCaret.classList.add('mouseCaret');
+    })
 })
 
 rightBtn.forEach(btn => {
@@ -46,9 +60,12 @@ navLinks.forEach(link => {
 function handleMouseEnter() {
     console.log("Mouse entered!");
     console.log(activeIndex);
-    const heading = document.querySelector(`[data-index="${activeIndex}"] .heading`);
     const headingText = document.querySelector(`[data-index="${activeIndex}"] .heading .heading-text`);
     const rotatingIcon = document.querySelector(`[data-index="${activeIndex}"] .heading .rotating-icon img`);
+    const headingFrontText = document.querySelector(`[data-index="${activeIndex}"] .heading-front-text`);
+    const headingSecondaryText = document.querySelector(`[data-index="${activeIndex}"] .heading-secondary-text`);
+    headingFrontText.style.opacity = '0';
+    headingSecondaryText.style.opacity = '1';
     scrollTopStop = true;
     mouseCaret.classList.add('caret-grow-heading');
     scrollToBottom(headingText.scrollTop, headingText.scrollHeight, headingText);
@@ -57,10 +74,12 @@ function handleMouseEnter() {
   }
   
   function handleMouseExit() {
-    console.log("Mouse left!");
-    const heading = document.querySelector(`[data-index="${activeIndex}"] .heading`);
-    const headingText = document.querySelector(`[data-index="${activeIndex}"] .heading .heading-text`);
+    const headingText = document.querySelector(`[data-index="${activeIndex}"] .heading-text`);
+    const headingFrontText = document.querySelector(`[data-index="${activeIndex}"] .heading-front-text`);
+    const headingSecondaryText = document.querySelector(`[data-index="${activeIndex}"] .heading-secondary-text`);
     const rotatingIcon = document.querySelector(`[data-index="${activeIndex}"] .heading .rotating-icon img`);
+    headingFrontText.style.opacity = '1';
+    headingSecondaryText.style.opacity = '0';
     scrollDownStop = true;
     mouseCaret.classList.remove('caret-grow-heading');
     scrollToTop(headingText.scrollTop, 0, headingText);
@@ -127,4 +146,14 @@ function handleLeftBtn(){
       nextSlide.dataset.status = "active";
       activeIndex = nextIndex;
     });
+}
+
+function handleNavToggle(){
+    nav.dataset.transitionable = 'true';
+    nav.dataset.toggled = nav.dataset.toggled === "true" ? "false" : "true" ;
+}
+
+window.matchMedia("(max-width: 800px)").onchange = e => {
+    nav.dataset.transitionable = "false";
+    nav.dataset.toggled = "false";
 }
