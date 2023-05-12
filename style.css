@@ -175,6 +175,7 @@ main > article {
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 2fr 1fr;
     transition: transform 400ms ease;
+    overflow: hidden;
 }
 
 main > article[data-status="inactive"] {
@@ -257,6 +258,7 @@ main > article[data-status="inactive"] {
     align-items: flex-end;
     padding: 2rem 4rem;
     border-left: 1px solid #1e2345;
+    box-sizing: border-box;
 }
 
 .description > div > p {
@@ -304,15 +306,11 @@ main > article[data-status="inactive"] {
     opacity: 0;
 }
 
-
-
 .image {
-    /* position: sticky; */
-    background-image: url(/images/pexels-anete-lusina-4792720.jpg);
-    /* background-image: url(images/pexels-gül-işık-2255355.jpg); */
+    background-image: url(/images/pexels-min-an-1448709.jpg);
     background-position: center;
     background-size: cover;
-    filter: grayscale(50%);
+    filter: grayscale(30%);
     overflow: clip;
     z-index: 1;
 }
@@ -438,14 +436,14 @@ main > article[data-status="inactive"] {
     }
 
     .features > div > a {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
 
     .about {
         flex-direction: row;
-        gap: 4rem;
+        margin: 4rem;
+        gap: 5rem;
         color: white;
-        z-index: 9998;
         border: 0;
     }
 
@@ -468,32 +466,58 @@ main > article[data-status="inactive"] {
     }
 
     main > article {
-        grid-template-rows: 1.5fr repeat(4, 1fr);
-        height: max(700px, 100%);
+        grid-template-rows: 1.5fr repeat(3, 0.5fr);
+        height: max(600px, 100%);
+    }
+
+    main > article > div {
+        width: 100vw;
+    }
+
+    .mouseCaret {
+        display: none;
     }
 
     .heading {
-        height: 10vh;
+        height: 20vh;
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
 
-
-    .heading-text h1{
+    .about a {
         font-size: 1.5rem;
     }
 
-    .plus-icon {
-        transform: scale(-0.5);
+    .profile a {
+        font-size: 2rem;
     }
 
-    /* .heading-front-text {
-        margin-bottom: -2rem;
-    } */
+    .caret-grow {
+        transform: scale(5);
+    }
 
-    .description > div > p{
-        font-size: 0.7rem;
+    .heading-text h1{
+        font-size: 2rem;
+    }
+
+    .rotating-icon {
+        padding-right: 1rem;
+        z-index: -9999;
+        background-color: transparent;
+    }
+
+    .plus-icon {
+        width: 3.5rem;
+        aspect-ratio: 1;
+    }
+
+    .description > div > p {
+        font-size: 0.75rem;
+    }
+
+    .move-btns {
+        height: 15vh;
     }
 
     .description {
